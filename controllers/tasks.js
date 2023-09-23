@@ -1,16 +1,30 @@
-// importar modelo
+import { TaskModel } from '../models/task.js'
 
 export const getAllTasks = (req, res) => {
-  const tasks = // ????
-  res.json(tasks)
+  try {
+    const tasks = TaskModel.getAllTasks()
+    res.json(tasks)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 }
 
 export const addTask = (req, res) => {
-  const task = // ????
-  res.json(task)
+  try {
+    const { description } = req.body
+    const task = TaskModel.addTask({ description })
+    res.json(task)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 }
 
 export const deleteTask = (req, res) => {
-  // ????
-  res.json({ message: 'Deleted successfully' })
+  try {
+    const { id } = req.params
+    TaskModel.deleteTask({ id })
+    res.json({ message: 'Deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 }
